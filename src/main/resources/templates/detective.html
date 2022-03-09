@@ -44,7 +44,7 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <!-- 头像区域 -->
-                    <div class="dropdown profile-element">
+                    <div class="dropdown profile-element" onclick="checkLogin()">
                             <span>
                             <img alt="image" class="img-circle" src="../static/Bootstrap/img/profile_small.jpg" />
                             </span>
@@ -56,16 +56,16 @@
                 <li >
                     <a href="/detective"><i class="fa fa-th-large"></i> <span class="nav-label">首页</span></a>
                 </li>
-                <li>
+                <li onclick="checkLogin()">
                     <a href="/detective"><i class="fa fa-upload"></i> <span class="nav-label">花粉上传</span></a>
                 </li>
-                <li>
+                <li onclick="checkLogin()">
                     <a href="/detective"><i class="fa fa-leaf"></i> <span class="nav-label">花粉检测</span></a>
                 </li>
-                <li>
+                <li onclick="checkLogin()">
                     <a href="/history"><i class="fa fa-paperclip"></i> <span class="nav-label">历史记录</span></a>
                 </li>
-                <li>
+                <li onclick="checkLogin()">
                     <a href="/changeProfile"><i class="fa fa-address-book"></i> <span class="nav-label">用户中心</span></a>
                 </li>
 
@@ -275,7 +275,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2"style="top:-60px;">
-                                    <label id="upload" title="Upload image file" for="inputImage" class="btn btn-success">
+                                    <label id="upload" title="Upload image file" for="inputImage" class="btn btn-success" onclick="upload()">
                                         <i class="fa fa-upload"></i>
                                         <input type="file" accept="image/*" name="file" id="inputImage" class="hide">
                                         上传新文件
@@ -554,7 +554,46 @@
             }
         });
     }
+    function checkLogin(){
 
+        $.ajax({
+            url:"/judge",
+            type: "POST",
+            dataType:"json",
+            success:function(result){
+                if(result==false){
+                    alert("请您先进行登录");
+                    window.location.href='/login';
+                }
+                else{
+                    window.onbeforeunload = function (e) {
+                        e = e || window.event;
+                        // 兼容IE8和Firefox 4之前的版本
+                        if (e) {
+                            e.returnValue = '关闭提示';
+                        }
+                        // Chrome, Safari, Firefox 4+, Opera 12+ , IE 9+
+                        return '关闭提示';
+                    };
+                    detective();
+                }
+            }
+        });
+    }
+
+    function upload(data){
+        $.ajax({
+            url:"/uploadImg",
+            type: "POST",
+            data:data.field,
+            dataType:"json",
+            success:function(result){
+                if(result==false){
+                    alert("请您先进行登录");
+                    window.location.href='/login';
+                }
+        })
+    }
     //检测
     function detective() {
         $("#detectiveState").html("分层");

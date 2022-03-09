@@ -21,23 +21,23 @@ public class Files implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-      private String fileId;
+      private String fileid;
 
-    private String fileName;
+    private String filename;
 
-    private String fileAddress;
+    private String fileaddress;
 
-    private String fileSize;
+    private String filesize;
 
-    private LocalDateTime uploadTime;
+    private LocalDateTime uploadtime;
 
-    private LocalDateTime makeTime;
+    private LocalDateTime maketime;
 
     private String area;
 
-    private String userName;
+    private String username;
 
-    private Integer userId;
+    private Integer userid;
 
     private String state;
 
