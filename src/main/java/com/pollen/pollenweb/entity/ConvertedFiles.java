@@ -23,7 +23,7 @@ public class ConvertedFiles implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-      @TableId(value = "file_id", type = IdType.AUTO)
+      @TableId(value = "fileId", type = IdType.AUTO)
       private Integer fileId;
 
     private String fileName;

@@ -16,8 +16,6 @@ spring:
     cache: false
     suffix: .html
     encoding: UTF-8
-    content-type: text/html
-    mode: HTML5
 
 #  thymeleaf:
 #    prefix: classpath:/templates/
@@ -30,4 +28,4 @@ mybatis-plus:
   mapper-locations: classpath:com/pollen/pollenweb/mapper/xml/*.xml
 
 file:
-    fileUploadDir: /Users/macmini/Downloads/testfile
+    fileUploadDir: /Users/yyq/Downloads/testfile

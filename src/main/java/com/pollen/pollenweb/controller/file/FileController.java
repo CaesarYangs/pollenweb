@@ -31,20 +31,20 @@ public class FileController {
 
 
     @Value("${file.fileUploadDir}")
-    private String uploadFilePath;
+    private String FilePath;
 
-    @Value("${file.fileUploadDir}")
-    private String downloadFilePath;
-
-    @Value("${file.fileUploadDir}")
-    private String deleteFilePath;
+//    @Value("${file.fileUploadDir}")
+//    private String downloadFilePath;
+//
+//    @Value("${file.fileUploadDir}")
+//    private String deleteFilePath;
 
     @RequestMapping("/upload")
     public JsonResult httpUpload(@RequestParam("files") MultipartFile files[]){
-        String url = uploadFilePath;
+        String url = FilePath;
         for(int i=0;i<files.length;i++){
             String fileName = files[i].getOriginalFilename();  // 文件名
-            File dest = new File(uploadFilePath +'/'+ fileName);
+            File dest = new File(FilePath +'/'+ fileName);
             if (!dest.getParentFile().exists()) {
                 dest.getParentFile().mkdirs();
             }
@@ -59,8 +59,8 @@ public class FileController {
     }
 
     @RequestMapping("/download")
-    public JsonResult fileDownLoad(HttpServletResponse response, @RequestParam("fileName") String fileName){
-        File file = new File(downloadFilePath +'/'+ fileName);
+    public JsonResult fileDownLoad(HttpServletResponse response, @RequestParam("filename") String fileName){
+        File file = new File(FilePath +'/'+ fileName);
         if(!file.exists()){
             return JsonResult.builder().data(null).message("下载文件不存在！").code("-2").build();
         }
@@ -84,35 +84,35 @@ public class FileController {
         }
         return JsonResult.builder().data(null).message("下载成功").code("2").build();
     }
-
-//    @Scheduled(cron="0 0 3 * * ?")
-    private void deleteFiles(){
-        deleteFile(new File(deleteFilePath));
-    }
-
-    public void deleteFile(File file){
-        //判断文件不为null或文件目录存在
-        if (file == null || !file.exists()){
-            log.info("暂无文件");
-            return;
-        }
-        //取得这个目录下的所有子文件对象
-        File[] files = file.listFiles();
-        //遍历该目录下的文件对象
-        for (File f: files){
-            //打印文件名
-            String name = f.getName();
-            log.info(name);
-            //判断子目录是否存在子目录,如果是文件则删除
-            if (f.isDirectory()){
-                deleteFile(f);
-            }else {
-                f.delete();
-            }
-        }
-        //删除空文件夹  for循环已经把上一层节点的目录清空。
-        file.delete();
-    }
+//
+////    @Scheduled(cron="0 0 3 * * ?")
+//    private void deleteFiles(){
+//        deleteFile(new File(deleteFilePath));
+//    }
+//
+//    public void deleteFile(File file){
+//        //判断文件不为null或文件目录存在
+//        if (file == null || !file.exists()){
+//            log.info("暂无文件");
+//            return;
+//        }
+//        //取得这个目录下的所有子文件对象
+//        File[] files = file.listFiles();
+//        //遍历该目录下的文件对象
+//        for (File f: files){
+//            //打印文件名
+//            String name = f.getName();
+//            log.info(name);
+//            //判断子目录是否存在子目录,如果是文件则删除
+//            if (f.isDirectory()){
+//                deleteFile(f);
+//            }else {
+//                f.delete();
+//            }
+//        }
+//        //删除空文件夹  for循环已经把上一层节点的目录清空。
+//        file.delete();
+//    }
 
 
 }
