@@ -2,79 +2,59 @@
 <html lang="zh_CN" xmlns:th="http://www.thyemleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>医院药品管理系统</title>
-    <link rel="stylesheet" th:href="@{layui/css/layui.css}" media="all">
-    <link rel="stylesheet" th:href="@{admin/style.css}" media="all">
+    <title>花粉检测管理系统</title>
+    <link rel="stylesheet" th:href="@{static/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{static/admin/style.css}" media="all">
 </head>
 <body>
-    <div class="login-main">
-        <header class="layui-elip">注册</header>
-        <form class="layui-form">
-            <div class="layui-input-inline">
-                <input type="text" name="loginname" required lay-verify="required" placeholder="账号" class="layui-input" >
-            </div>
-            <div class="layui-input-inline">
-                <input type="password" name="password" required lay-verify="required" placeholder="密码" class="layui-input">
-            </div>
-            <div class="layui-input-inline">
-                <input type="text" name="username" required lay-verify="required" placeholder="用户名" class="layui-input" >
-            </div>
-            <div class="layui-input-inline">
-                <input type="text" name="phonenumber" required lay-verify="required" placeholder="手机号" class="layui-input" >
-            </div>
-            <div class="layui-input-inline">
-                <input type="text" name="email" required lay-verify="required" placeholder="邮箱" class="layui-input" >
-            </div>
-            <div class="layui-input-inline login-btn">
-                <button lay-submit lay-filter="register" class="layui-btn">注册</button>
-            </div>
-        </form>
-    </div>
-    <!-- Mainly scripts -->
-    <script src="/static/Bootstrap/js/jquery-3.1.1.min.js"></script>
-    <script src="/static/Bootstrap/js/bootstrap.min.js"></script>
-    <!-- iCheck -->
-    <script src="/static/Bootstrap/js/plugins/iCheck/icheck.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
-            });
-        });
-    </script>
-
-<!--    <button lay-submit lay-filter="register" class="btn btn-primary block full-width m-b">register</button>-->
-<!--    <p class="text-muted text-center"><small>Already have an account?</small></p>-->
-<!--    <a class="btn btn-sm btn-white btn-block" href="/login">Login</a>-->
-<!--    </form>-->
-    <p class="m-t"> <small>北京工业大学 &copy; 2022</small> </p>
-
-    <script th:src="@{layui/layui.js}"></script>
-    <script>
-        layui.use("form",function (){
-            var form= layui.form;
-            var $= layui.$;
-            //监听提交
-            form.on("submit(register)",function (data){
-                $.ajax({
-                    url:"/UserAdd",
-                    type:"POST",
-                    data:data.field,
-                    dataType:"json",
-                    success:function(result){
-                        if(result.code=="0"){
-                            layer.msg(result.msg,{icon:result.icon,anim:result.anim},function (){
-                                window.location.href = "/login";
-                            });
-                        }else{
-                            layer.msg(result.msg,{icon:result.icon,anim:result.anim});
-                        }
+<div class="login-main">
+    <header class="layui-elip">注册</header>
+    <form class="layui-form">
+        <div class="layui-input-inline">
+            <input type="text" name="loginname" required lay-verify="required" placeholder="账号" class="layui-input" >
+        </div>
+        <div class="layui-input-inline">
+            <input type="password" name="password" required lay-verify="required" placeholder="密码" class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <input type="text" name="username" required lay-verify="required" placeholder="用户名" class="layui-input" >
+        </div>
+        <div class="layui-input-inline">
+            <input type="text" name="phonenumber" required lay-verify="required" placeholder="手机号" class="layui-input" >
+        </div>
+        <div class="layui-input-inline">
+            <input type="text" name="email" required lay-verify="required" placeholder="邮箱" class="layui-input" >
+        </div>
+        <div class="layui-input-inline login-btn">
+            <button lay-submit lay-filter="register" class="layui-btn">注册</button>
+        </div>
+    </form>
+</div>
+<script th:src="@{static/layui/layui.js}"></script>
+<script>
+    layui.use("form",function (){
+        var form= layui.form;
+        var $= layui.$;
+        //监听提交
+        form.on("submit(register)",function (data){
+            $.ajax({
+                url:"/UserAdd",
+                type:"POST",
+                data:data.field,
+                dataType:"json",
+                success:function(result){
+                    if(result.code=="0"){
+                        layer.msg(result.msg,{icon:result.icon,anim:result.anim},function (){
+                            // window.location.href = "/login";
+                        });
+                    }else{
+                        layer.msg(result.msg,{icon:result.icon,anim:result.anim});
                     }
-                });
-                return false;
+                }
             });
+            return false;
         });
-    </script>
+    });
+</script>
 </body>
 </html>
